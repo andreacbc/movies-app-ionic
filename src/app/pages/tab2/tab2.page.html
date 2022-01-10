@@ -1,0 +1,58 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-title>
+      Buscar Película
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-toolbar>
+    <ion-searchbar placeholder="Buscar película" animated debounce="700" [value]="textoBuscar"
+    (ionChange)="buscar( $event )" (ionClear)="onClear($event)" ></ion-searchbar> 
+</ion-toolbar>
+
+<ion-content>
+
+    <ion-grid fixed *ngIf="buscando">
+        <ion-row>
+            <ion-col class="ion-text-center">
+                <ion-spinner name="crescent"></ion-spinner>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-list *ngIf="resultadoPeliculas.length === 0" disabled>
+        <ion-list-header>
+            <ion-label class="ion-text-center tamano" color="primary">Alternativas de Búsqueda</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let idea of ideas; let i = index"> 
+            <ion-label color="medium" (click)="textoBuscar = idea" disabled  value='Button'> 
+                {{i +1}}. {{ idea }}
+            </ion-label>
+        </ion-item>
+    </ion-list>
+
+    <ion-grid fixed>
+        <ion-row>
+            <ion-col size="6" *ngFor="let pelicula of resultadoPeliculas">
+                    <ion-card (click)="verDetalle( pelicula.id)">
+                        <img [src]="pelicula.poster_path | imagen">
+                        <ion-card-header>
+                            <ion-card-subtitle>{{ pelicula.release_date }}</ion-card-subtitle>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <h2>{{ pelicula.title }}</h2>
+                        </ion-card-content>
+                    </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content 
+        loadingSpinner="bubbles" 
+        loadingText="Loading more data..."> 
+        </ion-infinite-scroll-content> 
+    </ion-infinite-scroll> 
+
+</ion-content>

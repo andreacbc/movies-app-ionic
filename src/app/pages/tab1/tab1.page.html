@@ -1,0 +1,15 @@
+<ion-content>
+
+  <app-grid titulo="Películas Nuevas"></app-grid>
+
+  <app-slideshow-backdrop [peliculasRecientes]="peliculasRecientes"></app-slideshow-backdrop>
+
+  <app-grid titulo="Cartelera"></app-grid>
+
+  <app-slideshow-poster [peliculasRecientes]="peliculasRecientes"></app-slideshow-poster>
+
+  <app-grid titulo="Populares"></app-grid>
+
+  <app-slideshow-pares [peliculasRecientes]="populares" (cargarMas)="cargarMas()"></app-slideshow-pares>
+
+</ion-content>

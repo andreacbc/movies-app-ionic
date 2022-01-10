@@ -1,0 +1,22 @@
+<ion-content>
+
+  <app-grid titulo="Películas Favoritas"></app-grid>
+
+  <div *ngFor="let pelicula of favoritoGenero">
+    <ion-grid *ngIf="pelicula.pelis.length >0">
+      <ion-row>
+        <ion-col>
+          <h4>{{ pelicula.genero }}</h4>
+        </ion-col>
+      </ion-row>
+      <ion-slides [options]="slideOpts">
+        <ion-slide *ngFor="let movie of pelicula.pelis">
+          <ion-card mode="md" (click)="verDetalle( movie.id)">
+            <ion-img [src]="movie.poster_path | imagen"></ion-img>
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
+    </ion-grid>
+  </div>
+  
+</ion-content>
